@@ -1,0 +1,44 @@
+<div class="contenedor">
+  <header>
+    <h1>Notas Rápidas (Sticky Notes) Banda Guzmán Oscar Eduardo</h1>
+  </header>
+
+  <div class="formulario-card">
+    <h2>Nueva Nota</h2>
+    <div class="form-group">
+      <input 
+        type="text" 
+        placeholder="Título de la nota..." 
+        [ngModel]="titulo()" 
+        (ngModelChange)="titulo.set($event)" 
+      />
+    </div>
+    <div class="form-group">
+      <input 
+        type="text" 
+        placeholder="Contenido de la nota..." 
+        [ngModel]="contenido()" 
+        (ngModelChange)="contenido.set($event)" 
+      />
+    </div>
+    <button (click)="guardar()" class="btn-guardar">Guardar</button>
+  </div>
+
+  <!-- Listado iterando sobre la Señal con @for -->
+  <section class="seccion-notas">
+    <h2>Mis Notas</h2>
+    
+    <div class="grid-notas">
+      @for (nota of notaService.notas(); track nota._id || $index) {
+        <div class="tarjeta-nota">
+          <h3 class="nota-titulo">{{ nota.titulo }}</h3>
+          <p class="nota-contenido">{{ nota.contenido }}</p>
+        </div>
+      } @empty {
+        <div class="sin-notas">
+          <p>No hay notas todavía. Escribe una nota y pulsa "Guardar".</p>
+        </div>
+      }
+    </div>
+  </section>
+</div>
